@@ -42,20 +42,20 @@ int main()
         //Update display
         disp = count;
         
-        //Wait for button A
+        //Wait for button 
         while (buttonA == 0) {
         } 
 
-        if (count > 0 ) {
-            count -= 1;
+        if ((count > 0 ) && (buttonB ==1)) {
+            count = count - 1;
         }
 
         //Wait for button B
         while (buttonB == 0) {
         }
 
-        if (count < 99 ) {
-            count += 1;
+        if ((count < 99 ) && (buttonA==1)) {
+            count = count + 1;
         } 
 
         //Reset condition
