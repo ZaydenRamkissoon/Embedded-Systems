@@ -39,7 +39,7 @@ int main()
     //Set up interrupts
     btnA.rise(&funcA);
     btnB.fall(&funcB);
-    tick.attach(&funcTmr, 500ms);
+    tick.attach(&funcTmr, 5000ms);
     
     //Main loop - mostly sleeps :)
     while (true) {

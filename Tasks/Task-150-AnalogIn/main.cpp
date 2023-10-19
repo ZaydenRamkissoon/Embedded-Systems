@@ -9,6 +9,9 @@ LCD_16X2_DISPLAY disp;
 Buzzer buzz;
 LatchedLED ledDisp(LatchedLED::STRIP);
 
+DigitalOut YLED(TRAF_YEL1_PIN,0);
+DigitalOut GLED(TRAF_GRN1_PIN,0);
+DigitalOut RLED(TRAF_RED1_PIN,0); 
 //Analogue Inputs
 AnalogIn pot(AN_POT_PIN);
 AnalogIn ldr(AN_LDR_PIN);
@@ -52,11 +55,43 @@ int main()
         printf("--------------------------------\n");
         printf("Potentiometer: %X\n", potVal);
         printf("Light Dependant Resistor: %X\n", lightVal);
-        printf("Microphone: %X\n", micVal);   
-
+        printf("Microphone: %X\n", micVal);  
+       
+        unsigned int M = (micVal - 0x8000) ;
+        printf("Microphone in decimal is %d\n", M);
+        
+        if (potVal>0x8000) {
+            ledDisp.setGroup(LatchedLED::LEDGROUP::RED);
+    for (unsigned int n=0; n<8; n++) {
+        ledDisp = 1 << n;
+        wait_us(250000);
+    }
+    ledDisp = 0;
+        }
+        if (lightVal<6000) {
+            ledDisp.setGroup(LatchedLED::LEDGROUP::GREEN);
+    for (unsigned int n=0; n<8; n++) {
+        ledDisp = 1 << n;
+        wait_us(250000);
+    }
+    ledDisp = 0;
+        }
+        if (micVal>50000) {
+            ledDisp.setGroup(LatchedLED::LEDGROUP::BLUE);
+    for (unsigned int n=0; n<8; n++) {
+        ledDisp = 1 << n;
+        wait_us(250000);
+    }     
+    ledDisp = 0;
+        }
+            }   
+       
+        
         //Wait 0.25 seconds
         wait_us(500000);
 
     }
-}
+
+
+
 
