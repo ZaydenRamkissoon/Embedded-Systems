@@ -20,18 +20,29 @@ int main()
     unsigned short samples[50];
 
     for (unsigned int m=0; m<50; m++) {
+        samples[m]= 0;
         printf(" %d is %X \n", m , samples[m]);
+      
     }
-    wait_us(500000);
+    wait_us(1000);
 
     // Automatic headlamp 
     while (true) {
 double mean = 0.02*(total);
-        printf ("Mean of samples is %.1f\n", mean );
+        
         for (unsigned int m=0; m<50; m++) {
-            unsigned short ldrVal   = ldr.read_u16();
+            double ldrVal   = ldr.read_u16();
+           // printf("ldr = %f\n" , ldrVal);
+              
             samples[m] = ldrVal;
-             total = total + samples[m];
+            if (m == 49){
+                total = (total + samples[m] - samples[0]);
+            }
+            else {
+                total = (total + samples[m] - samples[m+1]);
+            }
+             
+            //printf("Total = %f\n", total);
              
              enum {OFF=0, ON} state;
         
@@ -40,7 +51,7 @@ double mean = 0.02*(total);
                 if (mean > 0x8000) {
                     state = ON;
                     redLED = 1;
-                    wait_us(20000000);
+                    wait_us(1000);
                    
                 }
                 break;
@@ -54,11 +65,16 @@ double mean = 0.02*(total);
         };
 
         //Wait 0.25 seconds
-        wait_us(500000);
+        wait_us(10000);
 
     }
-            wait_us(10000);         // 10ms
-     
+            wait_us(10000); 
+            mean = 0.02*(total);        // 10ms
+            
+            printf ("Mean of samples is %.1f total is %f\n", mean, total );
+
+            
+            //total = 0;
         }
         
 
