@@ -1,5 +1,6 @@
 #include "mbed.h"
 #include "string.h"
+#include <cstring>
 
 DigitalOut greenLED(LED1);
 DigitalOut blueLED(LED2);
@@ -17,6 +18,25 @@ int main()
 
         while (nextString != NULL) 
         {
+            if(strcmp(nextString, "red")==0)
+            {redLED=1; 
+            wait_us(1000000);}
+            else if(strcmp(nextString, "green")==0)
+            {greenLED=1;
+            wait_us(1000000); }
+            else if (strcmp(nextString, "blue")==0) 
+            {blueLED=1; 
+            wait_us(1000000); }
+            else if (strcmp(nextString, "wait")==0) 
+            {
+               wait_us(1000000); 
+            redLED=0;
+            blueLED=0;
+            greenLED=0;
+            wait_us(1000000);}
+
+wait_us(1000000);
+
             printf("Found %s\n", nextString);
             printf("cmdString is now %s\n", cmdString);
 
