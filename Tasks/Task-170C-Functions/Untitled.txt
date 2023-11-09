@@ -123,3 +123,9 @@ int getDelayMS()
 }
 
 
+
+
+
+
+unsigned short greenarray[10] = {111, 246, 3, 46, 199, 254 , 0, 123, 200, 70};
+unsigned short bluearray[10] = {0 , 1 , 2 , 4, 8 , 16 , 32 , 64 , 128 , 255};

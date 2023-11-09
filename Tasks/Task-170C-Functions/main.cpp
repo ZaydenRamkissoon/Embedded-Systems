@@ -201,6 +201,8 @@ void setLatch(uint8_t dat, char col);
 void led_init(uint8_t dat, bool enabled);
 int getDelayMS();
 unsigned short redarray[10] = {255, 165, 100, 55, 76, 10, 128, 200, 162, 2};
+unsigned short greenarray[10] = {111, 246, 3, 46, 199, 254 , 0, 123, 200, 70};
+unsigned short bluearray[10] = {0 , 1 , 2 , 4, 8 , 16 , 32 , 64 , 128 , 255};
 
 int main()
 {
@@ -208,16 +210,20 @@ int main()
 
     led_init(0x00, true);
 
-    for(int m =0; m < 10; m++ ){
+    for(int m =0; m < 11; m++ ){
+      if(m==10){
+          m=0;
+      }
+      else{
         int red = redarray[m];
+        int green = greenarray[m];
+        int blue = bluearray[m];
         //Update the red
         setLatch(red,'r');
-        
         //Update the green
-        setLatch(0b10101010, 'g');
-
+        setLatch(green, 'g');
         //Update the blue
-        setLatch(0b11001100, 'b');
+        setLatch(blue, 'b');
     
         //while(true) {
         //Get delay value
@@ -231,13 +237,13 @@ int main()
 
         //Disable the latch outputs
         LED_BAR_OE = 1;
-        int a = rand(100);
+        
  printf("Functions demo\n");
         //Wait
         wait_us(delay_ms*1000);            
     //}
     }
-
+    }
 }
 
 void setLatch(uint8_t dat, char col)

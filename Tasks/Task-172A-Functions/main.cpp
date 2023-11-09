@@ -1,4 +1,5 @@
 #include "uop_msb.h"
+#include <cstdio>
 using namespace uop_msb;
 
 // LED Bar Display
@@ -22,8 +23,11 @@ uint8_t idx = 0;
 
 int main()
 {
-    printf("Functions demo\n");
 
+    printf("Functions demo\n");
+printf("enter alpha between 0 and 1, the coefficient of the next sample");
+double al;
+scanf("%lf", &al);
     led_init(0x00, true);
 
     //Update the red
@@ -43,8 +47,10 @@ int main()
         
         //Get average delay value
         for (unsigned int n=0; n<32; n++) {
-            int potValue = getDelayMS();                    //Get raw value (with noise)
-            meanPotValue = 0.95*meanPotValue + 0.05*potValue; //Handy forumula!
+            int potValue = getDelayMS();   
+            
+                             //Get raw value (with noise)
+            meanPotValue = (1-al)*meanPotValue + al*potValue; //Handy forumula!
         }
         int delay_ms = (int)meanPotValue;               //Cast to integer
 
