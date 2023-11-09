@@ -1,5 +1,7 @@
 #include "uop_msb.h"
-
+#include <chrono>
+#include <cstdint>
+#include <cstdio>
 // LED Bar Display
 BusOut dataBits(LED_D0_PIN, LED_D1_PIN, LED_D2_PIN, LED_D3_PIN, LED_D4_PIN, LED_D5_PIN, LED_D6_PIN, LED_D7_PIN);
 DigitalOut LED_BAR_OE(LED_BAR_OE_PIN,1);
@@ -12,8 +14,32 @@ void setLatch(uint8_t dat, char col);
 void led_init(uint8_t dat, bool enabled);
 int getDelayMS();
 
+
+
+
+
+   
+
+
 int main()
 {
+    int m;
+unsigned short redarray[10];
+unsigned short greenarray[10];
+unsigned short bluearray[10];
+    for (unsigned int m=0; m<10; m++) {
+    redarray[m] = m+6;
+    wait_us(10000);          // 10ms
+}
+    for (unsigned int o=0 ; o<10 ; o++) {
+        greenarray[o] = o+5;
+          wait_us(10000); 
+             }
+     for (unsigned int p=0; p<10; p++) {
+    redarray[p] = 6*p-1;
+    wait_us(10000);          // 10ms
+}
+             
     printf("Functions demo\n");
 
     led_init(0x00, true);
@@ -39,6 +65,7 @@ int main()
         wait_us(delay_ms*1000);
 
         //Disable the latch outputs
+    
         LED_BAR_OE = 1;
 
         //Wait
