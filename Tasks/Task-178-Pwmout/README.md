@@ -1,9 +1,14 @@
 ![](./resources/official_armmbed_example_badge.png)
 # Bare metal blinky Mbed OS example
 
-This example shows how to achieve memory optimizations in Mbed OS. Starting with a blinky application, the example illustrates how to enable the bare metal profile and further memory optimizations.
+This example shows how to achieve memory optimizations in Mbed OS. 
+Starting with a blinky application, the example illustrates how to enable the bare metal profile and
+ further memory optimizations.
 
-You can build this project with all supported [Mbed OS build tools](https://os.mbed.com/docs/mbed-os/latest/tools/index.html). However, this example project specifically refers to the command-line interface tool [Arm Mbed CLI](https://github.com/ARMmbed/mbed-cli#installing-mbed-cli).
+You can build this project with all supported 
+[Mbed OS build tools](https://os.mbed.com/docs/mbed-os/latest/tools/index.html). 
+However, this example project specifically refers to the command-line interface tool 
+[Arm Mbed CLI](https://github.com/ARMmbed/mbed-cli#installing-mbed-cli).
 
 1. Install Mbed CLI.
 1. From the command-line, import the example: `mbed import mbed-os-example-blinky-baremetal`
@@ -16,7 +21,8 @@ The `main()` function toggles the state of a digital output connected to an LED 
 ## Building and running
 
 1. Connect a USB cable between the USB port on the target and the host computer.
-1. Run the following command to build the example project, program the microcontroller flash memory, and open a serial terminal:
+1. Run the following command to build the example project,
+ program the microcontroller flash memory, and open a serial terminal:
 
    ```
    $ mbed compile -m <TARGET> -t <TOOLCHAIN> --flash --sterm
@@ -29,7 +35,8 @@ The binary is located at `./BUILD/<TARGET>/<TOOLCHAIN>/mbed-os-example-blinky-ba
 
 Alternatively, you can manually copy the binary to the target, which gets mounted on the host computer through USB.
 
-Depending on the target, you can build the example project with the `GCC_ARM`, `ARM` or `IAR` toolchain. After installing Arm Mbed CLI, run the command below to determine which toolchain supports your target:
+Depending on the target, you can build the example project with the `GCC_ARM`, `ARM` or `IAR` toolchain. 
+After installing Arm Mbed CLI, run the command below to determine which toolchain supports your target:
 
 ```
 $ mbed compile -S
@@ -48,7 +55,10 @@ This is the bare metal blinky example running on Mbed OS 99.99.99.
 
 ### The bare metal profile
 
-The bare metal profile is a configuration of Mbed OS that excludes the RTOS, as well as other features. We designed it specifically for ultraconstrained devices because it gives you more control over the system. For more details, please see [the bare metal documentation](https://os.mbed.com/docs/mbed-os/latest/reference/mbed-os-bare-metal.html)
+The bare metal profile is a configuration of Mbed OS that excludes the RTOS, as well as other features. 
+We designed it specifically for ultraconstrained devices because it gives you more control over the system. 
+For more details, please see [the bare metal documentation]
+(https://os.mbed.com/docs/mbed-os/latest/reference/mbed-os-bare-metal.html)
 
 To build with the bare metal profile, the application configuration file must contain:
 
@@ -59,10 +69,12 @@ To build with the bare metal profile, the application configuration file must c
 ```
 
 ### Futher optimizations
-Some of the configurations shown below are already set by default in `targets/targets.json` and `platform/mbed_lib.json`.
+Some of the configurations shown below are already set by default in `targets/targets.json` and
+ `platform/mbed_lib.json`.
 #### Linking with smaller C libraries
 
-Both the `ARM` and `GCC_ARM` toolchains support optimized versions of their C standard libraries, microlib and newlib-nano. We recommend using them with the bare metal profile.
+Both the `ARM` and `GCC_ARM` toolchains support optimized versions of their C standard libraries, 
+microlib and newlib-nano. We recommend using them with the bare metal profile.
 
 To build with the smaller C libraries, modify the application configuration file:
 
@@ -76,13 +88,19 @@ To build with the smaller C libraries, modify the application configuration file
 }
 ```
 
-The build system reverts to the standard C library if support for the small C library is not enabled for your target. You can find more information [here]( https://github.com/ARMmbed/mbed-os-5-docs/blob/development/docs/program-setup/bare_metal/c_small_libs.md).
+The build system reverts to the standard C library if support for the small C library is not enabled for your target. 
+You can find more information [here]
+( https://github.com/ARMmbed/mbed-os-5-docs/blob/development/docs/program-setup/bare_metal/c_small_libs.md).
 
 #### Using Mbed minimal printf library
 
-Mbed OS offers a smaller `printf()` alternative. The [minimal printf](https://github.com/ARMmbed/mbed-os/blob/master/platform/source/minimal-printf/README.md) library implements a subset of the `v/s/f/printf` function family, and you can disable floating points to further reduce code size.
+Mbed OS offers a smaller `printf()` alternative. The [minimal printf]
+(https://github.com/ARMmbed/mbed-os/blob/master/platform/source/minimal-printf/README.md)
+ library implements a subset of the `v/s/f/printf` function family, and you can disable
+  floating points to further reduce code size.
 
-To build with the minimal printf library and disable floating points printing, you need to modify the application configuration file:
+To build with the minimal printf library and disable floating points printing, 
+you need to modify the application configuration file:
 
 ```json
 {
@@ -99,7 +117,10 @@ Further optimizations are possible. For more details, please see the minimal pri
 
 #### Using a minimal console
 
-If your application only needs unbuffered I/O operations, you can save additional memory by using a configuration of the platform library, which removes file handling functionality from the [system I/O retarget code](https://github.com/ARMmbed/mbed-os/blob/master/platform/source/mbed_retarget.cpp).
+If your application only needs unbuffered I/O operations, 
+you can save additional memory by using a configuration of the platform library, 
+which removes file handling functionality from the [system I/O retarget code]
+(https://github.com/ARMmbed/mbed-os/blob/master/platform/source/mbed_retarget.cpp).
 
 To build with the minimal console functionality, modify the application configuration file:
 
@@ -115,7 +136,8 @@ To build with the minimal console functionality, modify the application configur
 
 #### Memory comparison
 
-The below table shows the result for the blinky bare metal application compiled with the release profile on K64F for the GCC_ARM toolchain.
+The below table shows the result for the blinky bare metal application compiled with the release 
+profile on K64F for the GCC_ARM toolchain.
 
 The baseline configuration used is the blinky bare metal application built with the standard C library.
 
@@ -130,7 +152,8 @@ Mbed OS release: mbed-os-6.0.0-alpha-2
 
 ## Troubleshooting 
 
-If you have problems, you can review the [documentation](https://os.mbed.com/docs/latest/tutorials/debugging.html) for suggestions on what could be wrong and how to fix it. 
+If you have problems, you can review the [documentation](https://os.mbed.com/docs/latest/tutorials/debugging.html) 
+for suggestions on what could be wrong and how to fix it. 
 
 ## Related links 
 
@@ -141,6 +164,8 @@ If you have problems, you can review the [documentation](https://os.mbed.com/doc
 
 ### License and contributions
 
-The software is provided under the Apache-2.0 license. Contributions to this project are accepted under the same license. Please see contributing.md for more information.
+The software is provided under the Apache-2.0 license. Contributions to this project are accepted under the same license. 
+Please see contributing.md for more information.
 
-This project contains code from other projects. The original license text is included in those source files. They must comply with our license guide.
+This project contains code from other projects. The original license text is included in those source files. 
+They must comply with our license guide.
