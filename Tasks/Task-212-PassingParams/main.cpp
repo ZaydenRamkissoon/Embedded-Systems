@@ -11,10 +11,22 @@ ComplexNumber_C complexAdd(const ComplexNumber_C a, const ComplexNumber_C b) {
     y.imag += b.imag;
     return y;
 }
+ComplexNumber_C complexConjugate(const ComplexNumber_C a){
+    ComplexNumber_C y = a;
+    y.imag = -1*y.imag;
+    return y;
+}
+ComplexNumber_C complexNegate(const ComplexNumber_C a){
+    ComplexNumber_C y = a;
+    y.real = -1*y.real;
+    y.imag = -1*y.imag;
+    return y;
+}
 
 void complexDisplay(const char *strName, const ComplexNumber_C u) {
     printf("%s = %f + j%f\n", strName, u.real, u.imag);
 }
+
 
 // TASK - write and test complexConjugate, complexNegate, complexSubtract, complexMagnitude, complexMultiply and complexDivide
 
@@ -29,6 +41,10 @@ int main() {
  
     ComplexNumber_C sum = complexAdd(p, q);
     complexDisplay("p+q", sum);
+    ComplexNumber_C pbar = complexConjugate(p);
+    complexDisplay("p*", pbar);
+    ComplexNumber_C qbar = complexConjugate(q);
+    complexDisplay("q*", qbar);
 
     
     while (true) {
