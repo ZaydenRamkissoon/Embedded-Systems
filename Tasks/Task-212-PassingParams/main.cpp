@@ -22,6 +22,12 @@ ComplexNumber_C complexNegate(const ComplexNumber_C a){
     y.imag = -1*y.imag;
     return y;
 }
+ComplexNumber_C complexSubtract(const ComplexNumber_C a, const ComplexNumber_C b) {
+    ComplexNumber_C c = complexNegate(b);
+    ComplexNumber_C y = complexAdd(a,c);
+    return y;
+}
+
 
 void complexDisplay(const char *strName, const ComplexNumber_C u) {
     printf("%s = %f + j%f\n", strName, u.real, u.imag);
@@ -45,6 +51,8 @@ int main() {
     complexDisplay("p*", pbar);
     ComplexNumber_C qbar = complexConjugate(q);
     complexDisplay("q*", qbar);
+    ComplexNumber_C difference = complexSubtract(p, q);
+    complexDisplay("p-q", difference);
 
     
     while (true) {
