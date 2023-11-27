@@ -101,7 +101,10 @@ int main()
 
         // LED
         if (tm >= 250ms) {
+
             greenLED = !greenLED;
+            int t = 100000 + ((100000*(count))/11);
+            wait_us(t);
             tmr.reset();
         }
         
